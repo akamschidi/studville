@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.studville.studville.Entity.Stud;
+import com.studville.studville.Exceptions.StudNotFoundException;
 import com.studville.studville.Repository.StudRepository;
 import com.studville.studville.StudService.ServiceInterface.StudInterface;
 
@@ -23,7 +24,7 @@ public class StudService implements StudInterface{
        Optional<Stud> newStud = repository.findByEmail(stud.getEmail());
 
        if(newStud.isPresent()){
-        throw new RuntimeException("Stud With Email" + stud.getEmail() + "Already Exists");
+        throw new StudNotFoundException("Stud With Email" + stud.getEmail() + "Already Exists");
        }
        return repository.save(stud);  
     }
@@ -47,7 +48,7 @@ public class StudService implements StudInterface{
     @Override
     public Stud updateStud(Stud stud, Long id) {
        Stud existingStud = repository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Stud Not Found...."));
+        .orElseThrow(() -> new StudNotFoundException("Stud Not Found...."));
 
         existingStud.setName(stud.getName());
         existingStud.setEmail(stud.getEmail());
