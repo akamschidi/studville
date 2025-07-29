@@ -3,6 +3,8 @@ package com.studville.studville.StudService;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.studville.studville.Entity.Stud;
@@ -24,21 +26,27 @@ public class StudService implements StudInterface{
        Optional<Stud> newStud = repository.findByEmail(stud.getEmail());
 
        if(newStud.isPresent()){
-        throw new StudNotFoundException("Stud With Email" + stud.getEmail() + "Already Exists");
+        throw new StudNotFoundException("Stud With Email " + stud.getEmail() + " Already Exists");
        }
        return repository.save(stud);  
     }
 
-
+    @Override
+    public Page<Stud> listAllstuds(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+     
+   /* 
     @Override
     public List<Stud> getAllStuds() {
         return repository.findAll();
     }
+    */
 
     @Override
     public Stud findStudById(Long Id) {
       return repository.findById(Id)
-      .orElseThrow(() -> new StudNotFoundException("Stud With Id" + Id + "Not Found"));
+      .orElseThrow(() -> new StudNotFoundException("Stud With Id " + Id + " Not Found"));
 
     }
 /* 
@@ -51,7 +59,7 @@ public class StudService implements StudInterface{
     @Override
     public Stud findStudByEmail(String email) {
         return repository.findByEmail(email)
-        .orElseThrow(() -> new StudNotFoundException("Stud With Email Address" + email + "Not Found"));
+        .orElseThrow(() -> new StudNotFoundException("Stud With Email Address" + email + " Not Found"));
     }
 
 
@@ -75,7 +83,19 @@ public class StudService implements StudInterface{
 
     @Override
     public void removeStud(Long id) {
+        if(!repository.existsById(id)){
+            throw new StudNotFoundException("Stud With ID " + id + " Already Exists");
+
+        }
        repository.deleteById(id);
     }
+
+    @Override
+    public List<Stud> getAllStuds() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllStuds'");
+    }
+
+ 
     
 }
