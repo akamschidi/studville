@@ -36,19 +36,30 @@ public class StudService implements StudInterface{
     }
 
     @Override
-    public Optional<Stud> findStudById(Long Id) {
-      return repository.findById(Id);
+    public Stud findStudById(Long Id) {
+      return repository.findById(Id)
+      .orElseThrow(() -> new StudNotFoundException("Stud With Id" + Id + "Not Found"));
+
     }
+/* 
+    @Override
+    public Optional<Stud> findStudByIdd(Long Id){
+        return repository.findById(Id);
+    }
+        */
 
     @Override
-    public Optional<Stud> findStudByEmail(String email) {
-        return repository.findByEmail(email);
+    public Stud findStudByEmail(String email) {
+        return repository.findByEmail(email)
+        .orElseThrow(() -> new StudNotFoundException("Stud With Email Address" + email + "Not Found"));
     }
+
+
 
     @Override
     public Stud updateStud(Stud stud, Long id) {
        Stud existingStud = repository.findById(id)
-        .orElseThrow(() -> new StudNotFoundException("Stud Not Found...."));
+        .orElseThrow(()->new StudNotFoundException("Stud Not Found...."));
 
         existingStud.setName(stud.getName());
         existingStud.setEmail(stud.getEmail());
