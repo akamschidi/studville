@@ -9,8 +9,8 @@ public interface StudInterface {
     
     Stud addStud(Stud stud);
     List<Stud> getAllStuds();
-    Optional<Stud> findStudById(Long Id);
-    Optional<Stud> findStudByEmail(String email);
+    Stud findStudById(Long Id);
+    Stud findStudByEmail(String email);
     Stud updateStud(Stud stud, Long id);
     void removeStud(Long id);
     
