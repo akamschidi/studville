@@ -44,7 +44,7 @@ public class StudService implements StudInterface{
     */
 
     @Override
-    public Stud findStudById(Long Id) {
+    public Stud findStudById(Integer Id) {
       return repository.findById(Id)
       .orElseThrow(() -> new StudNotFoundException("Stud With Id " + Id + " Not Found"));
 
@@ -65,7 +65,7 @@ public class StudService implements StudInterface{
 
 
     @Override
-    public Stud updateStud(Stud stud, Long id) {
+    public Stud updateStud(Stud stud, Integer id) {
        Stud existingStud = repository.findById(id)
         .orElseThrow(()->new StudNotFoundException("Stud Not Found...."));
 
@@ -82,7 +82,7 @@ public class StudService implements StudInterface{
     }
 
     @Override
-    public void removeStud(Long id) {
+    public void removeStud(Integer id) {
         if(!repository.existsById(id)){
             throw new StudNotFoundException("Stud With ID " + id + " Already Exists");
 

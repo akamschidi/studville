@@ -9,9 +9,9 @@ import com.studville.studville.Entity.Stud;
 
 
 @Repository
-public interface StudRepository extends JpaRepository<Stud, Long> {
+public interface StudRepository extends JpaRepository<Stud, Integer> {
 
     Optional<Stud> findByEmail(String email);
-    Optional<Stud> findByName(String name);
+    //Optional<Stud> findByName(String name);
     
 }
