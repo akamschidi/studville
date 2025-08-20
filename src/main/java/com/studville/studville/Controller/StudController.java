@@ -51,7 +51,7 @@ public class StudController {
     }
 
     @GetMapping("/stud/{id}")
-    public ResponseEntity<Stud> findStudById(@PathVariable Long id) {
+    public ResponseEntity<Stud> findStudById(@PathVariable Integer id) {
        Stud studByID = service.findStudById(id);
         return  ResponseEntity.ok(studByID);
     }
@@ -64,13 +64,13 @@ public class StudController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Stud> updateStud(@PathVariable Long id, @RequestBody Stud stud) {
+    public ResponseEntity<Stud> updateStud(@PathVariable Integer id, @RequestBody Stud stud) {
         Stud studUpdate = service.updateStud(stud, id);
          return ResponseEntity.ok(studUpdate);
     }
 
     @DeleteMapping("/remove/{id}")
-    public ResponseEntity<Void> removeStud(@PathVariable Long id){
+    public ResponseEntity<Void> removeStud(@PathVariable Integer id){
      service.removeStud(id);
      return ResponseEntity.noContent().build();
     }
